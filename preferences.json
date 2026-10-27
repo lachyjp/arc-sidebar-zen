@@ -1,0 +1,32 @@
+[
+  {
+    "property": "mod.arcsidebar.spacing",
+    "label": "Arc row height, text size and indents",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "mod.arcsidebar.tinted_text",
+    "label": "Tint text, folders and space icon with the space colour",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "mod.arcsidebar.selected_tab",
+    "label": "Arc-style hover and selected tab",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "mod.arcsidebar.essentials",
+    "label": "Arc-style Essentials highlight",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "mod.arcsidebar.url_text",
+    "label": "Smaller URL text like Arc",
+    "type": "checkbox",
+    "defaultValue": true
+  }
+]

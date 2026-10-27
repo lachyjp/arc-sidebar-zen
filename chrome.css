@@ -1,0 +1,132 @@
+/* Arc Sidebar — makes Zen's sidebar match Arc's spacing, type, colours and highlights.
+   Values were measured from side-by-side Arc and Zen screenshots.
+   Each section can be switched off in Zen Mods settings. */
+
+/* ---------- Spacing, type and indents ---------- */
+@media (-moz-pref("mod.arcsidebar.spacing")) {
+  #navigator-toolbox,
+  #navigator-toolbox #tabbrowser-tabs {
+    /* Arc row pitch is 41px (Zen: 40px); hover pill stays 34px */
+    --tab-margin-block: 2.5px !important;
+    /* Arc icons and titles sit ~1px further in from the row edge */
+    --tab-padding-inline: 9px !important;
+    --zen-pinned-separator-color: light-dark(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0.12)) !important;
+  }
+
+  #navigator-toolbox .tabbrowser-tab .tab-label {
+    font-size: 14px !important;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  zen-folder > .tab-group-label-container > label,
+  zen-folder .tab-group-label {
+    font-weight: 600 !important;
+    font-size: 14px !important;
+  }
+
+  /* Folders and their tabs sit ~2px further right in Arc */
+  zen-workspace zen-folder {
+    padding-inline-start: 2px;
+  }
+
+  zen-workspace .zen-current-workspace-indicator-name {
+    font-weight: 600 !important;
+  }
+
+  /* Arc leaves a wider gap after the + in "New Tab" */
+  #tabs-newtab-button .toolbarbutton-text {
+    margin-inline-start: 3px !important;
+  }
+
+  /* Essentials tiles are ~1.7px taller in Arc */
+  #navigator-toolbox #zen-essentials {
+    --tab-min-height: 47.5px !important;
+  }
+}
+
+/* ---------- Space-tinted text and icons ---------- */
+@media (-moz-pref("mod.arcsidebar.tinted_text")) {
+  /* Arc tints sidebar text with the space colour instead of neutral grey.
+     Light spaces only; dark spaces keep Zen's contrast colour. */
+  zen-workspace {
+    --arc-ink: light-dark(
+      oklch(from var(--zen-primary-color) 0.24 min(c, 0.1) h),
+      var(--toolbox-textcolor)
+    );
+    /* Arc's deeper accent, used for space and folder icons */
+    --arc-shade: light-dark(
+      oklch(from var(--zen-primary-color) 0.47 min(c, 0.16) h),
+      var(--toolbox-textcolor)
+    );
+  }
+
+  zen-workspace .tabbrowser-tab:not([zen-essential]) .tab-label,
+  zen-workspace zen-folder > .tab-group-label-container > label,
+  zen-workspace .tab-group-label {
+    color: var(--arc-ink) !important;
+  }
+
+  zen-workspace .zen-current-workspace-indicator-name {
+    color: color-mix(in srgb, var(--arc-ink) 58%, transparent) !important;
+  }
+
+  zen-workspace .zen-current-workspace-indicator-icon {
+    color: var(--arc-shade) !important;
+    fill: var(--arc-shade) !important;
+  }
+
+  /* Folders: deep-accent outline and back panel, pale tinted front */
+  zen-workspace zen-folder {
+    --zen-folder-stroke: light-dark(var(--arc-shade), color-mix(in srgb, var(--zen-colors-primary) 15%, #ebebeb)) !important;
+    --zen-folder-behind-bgcolor: light-dark(var(--arc-shade), color-mix(in srgb, var(--zen-primary-color) 60%, #c1c1c1)) !important;
+    --zen-folder-front-bgcolor: light-dark(oklch(from var(--zen-primary-color) 0.93 min(c, 0.05) h), color-mix(in srgb, var(--zen-primary-color), black 40%)) !important;
+  }
+}
+
+/* ---------- Hover and selected tab ---------- */
+@media (-moz-pref("mod.arcsidebar.selected_tab")) {
+  /* Arc darkens ~3% on hover rather than lightening */
+  #navigator-toolbox .tabbrowser-tab:not([zen-essential], [visuallyselected]):hover .tab-background,
+  zen-folder > .tab-group-label-container:hover::before {
+    background-color: light-dark(rgba(0, 0, 0, 0.035), rgba(255, 255, 255, 0.06)) !important;
+  }
+
+  /* Selected tab: slightly-less-than-white card, hairline ring, soft drop */
+  #navigator-toolbox .tabbrowser-tab:not([zen-essential])[visuallyselected] .tab-background {
+    background-color: light-dark(rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.14)) !important;
+    box-shadow:
+      0 0 0 0.5px light-dark(rgba(0, 0, 0, 0.07), rgba(255, 255, 255, 0.06)),
+      0 1px 2px light-dark(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.2)) !important;
+  }
+}
+
+/* ---------- Essentials highlight ---------- */
+@media (-moz-pref("mod.arcsidebar.essentials")) {
+  /* Zen's blurred favicon (::after) shows as a 2px ring around an inset panel (::before),
+     like Arc. Arc's panel is a translucent grey on dark spaces, near-white on light ones. */
+  #zen-essentials .tabbrowser-tab[visuallyselected] > .tab-stack > .tab-background {
+    --zen-essential-bg-margin: 2px !important;
+    --zen-essential-tab-selected-bg: light-dark(rgba(255, 255, 255, 0.86), rgba(165, 158, 162, 0.8)) !important;
+    --zen-essential-tab-selected-bg-hover: light-dark(rgba(255, 255, 255, 0.8), rgba(165, 158, 162, 0.72)) !important;
+  }
+
+  /* Arc's ring is a brighter, more saturated version of the favicon colours */
+  #zen-essentials .tabbrowser-tab[visuallyselected] > .tab-stack > .tab-background::after {
+    filter: blur(20px) saturate(1.8) brightness(1.35) !important;
+  }
+
+  /* Unselected tiles: Arc lifts them ~12% white on dark spaces, ~5% black on light */
+  #zen-essentials .tabbrowser-tab:not([visuallyselected], [multiselected="true"]) .tab-background {
+    background: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.12)) !important;
+  }
+}
+
+/* ---------- URL pill ---------- */
+@media (-moz-pref("mod.arcsidebar.url_text")) {
+  /* Arc's URL text is ~7% smaller and inset ~3px more */
+  #urlbar:not([breakout-extend]) .urlbar-input-box {
+    font-size: 0.93em !important;
+    padding-inline-start: 3px !important;
+  }
+}
