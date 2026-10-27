@@ -4,6 +4,11 @@ Makes Zen's sidebar look like Arc's. Every value was measured from side-by-side 
 
 ![Arc Sidebar preview](image.png)
 
+## Install
+
+- **With an AI agent:** paste the prompt in [INSTALL_WITH_AI.md](INSTALL_WITH_AI.md) into Claude Code, Codex or a similar agent.
+- **By hand:** follow [SUBMITTING.md](SUBMITTING.md#install-it-yourself).
+
 ## What it changes
 
 | Option | What you get |
